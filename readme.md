@@ -2,7 +2,7 @@
 
 ## Configuración 4 
 
-![image-20211103141437433](images/image-20211103141437433.png)
+![img conf IV](images/image-20211103141437433.png)
 
 Ejemplo de **server nodejs**:
 
@@ -32,23 +32,25 @@ app.listen(port, () => {
 
 ```javascript
 upstream node_cluster {
-    server 172.17.0.2:3000 weight=1;
-    server 172.17.0.3:3001 weight=1;
-    server 172.17.0.4:3002 weight=1;
+    server server1:3000 weight=1;
+    server server2:3001 weight=1;
+    server server3:3002 weight=1;
 }
 
 server {
     listen 80;
-    server_name api.dominio.com;
+    server_name _;
 
     location / {
+        proxy_read_timeout 300s;
+        proxy_connect_timeout 75s;
+
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
         proxy_pass http://node_cluster/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
-        proxy_read_timeout 5m;
         proxy_set_header Connection "upgrade";
     }
 }
