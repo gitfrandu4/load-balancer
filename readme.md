@@ -1,4 +1,6 @@
-# Configuración 4 - Load balancer
+# Load Balancing Node.js Applications with NGINX and Docker
+
+## Configuración 4 
 
 ![image-20211103141437433](images/image-20211103141437433.png)
 
@@ -8,26 +10,12 @@ Ejemplo de **server nodejs**:
 const express = require('express')
 const app = express()
 
-let ejs = require('ejs') // => a powerful and simple templating engine.
+let ejs = require('ejs') 
 let fs = require('fs')
 
 const port = process.env.PORT
 
-// what we need to send
-let objectSentFromServer = [
-  {
-    "id": 1,
-    "title": "Post 1"
-  },
-  {
-    "id": 2,
-    "title": "Post 2"
-  },
-  {
-    "id": 3,
-    "title": "Post 3"
-  }
-] 
+let objectSentFromServer = [...] 
 
 app.get('/', (req, res) => {
     fs.readFile(__dirname + '/index.html', 'utf-8', (err, html) => {
@@ -40,7 +28,7 @@ app.listen(port, () => {
 })
 ```
 
-**Configuración nginc.conf - Load balancer**
+**Configuración nginx.conf - Load balancer**
 
 ```javascript
 upstream node_cluster {
