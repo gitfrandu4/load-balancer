@@ -1,0 +1,41 @@
+version: "3.1"
+
+services: 
+  server1: 
+    image: node-app
+    network_mode: bridge
+    hostname: server1
+    expose:
+      - "3000"
+    environment: 
+      PORT: 3000
+  server2:
+    image: node-app
+    network_mode: bridge
+    hostname: server2
+    expose:
+      - "3001"
+    environment: 
+      PORT: 3001
+  server3:
+    image: node-app
+    network_mode: bridge
+    hostname: server3
+    expose:
+      - "3002"
+    environment: 
+      PORT: 3002
+  nginx: 
+    image: nginx-conf2
+    network_mode: bridge
+    ports:
+      - 8080:80
+    depends_on:
+      - server1
+      - server2
+      - server3
+networks:
+  default:
+    driver: bridge
+    name: load-balance-network
+  
