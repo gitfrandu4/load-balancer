@@ -1,10 +1,12 @@
 const express = require('express')
+var os = require("os");
 const app = express()
 
 let ejs = require('ejs') // => a powerful and simple templating engine.
 let fs = require('fs')
 
 const port = process.env.PORT
+// const port = 3000
 
 // what we need to send
 let objectSentFromServer = [
@@ -24,7 +26,12 @@ let objectSentFromServer = [
 
 app.get('/', (req, res) => {
     fs.readFile(__dirname + '/index.html', 'utf-8', (err, html) => {
-      res.send(ejs.render(html, { objectSentFromServer: objectSentFromServer}))
+      res.send(ejs.render(html, 
+        { 
+          objectSentFromServer: objectSentFromServer, 
+          port: port,
+          host: os.hostname()
+        }))
     })
 })
 

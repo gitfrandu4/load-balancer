@@ -4,16 +4,32 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>Load Balancing</title>
+		<style>
+			* {color:#0449B8; background: #4B89EC;}
+			.main-content {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Hola mundo</h1>
-
-        <div class="data"></div>
+		<div class="main-content">
+			<h1 class="title"></h1>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 		<script type="text/javascript">
             var data = JSON.parse('<%-JSON.stringify(objectSentFromServer)%>');
-			console.log(data);
+			
+			const port = '<%-port%>'
+			const host = '<%-host%>'
+			
+			$( ".title" ).html( `${host}:${port}` );
+
+			console.log(`Response from: ${host}:${port}`);
 		</script>
 	</body>
 </html>
