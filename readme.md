@@ -56,3 +56,13 @@ server {
 }
 ```
 
+```
+Build images:
+
+docker build -t node-app .\node\.  
+docker build -t nginx-conf4 .\nginx\.  
+
+Start containers:
+
+docker-compose up
+```

@@ -20,7 +20,7 @@ services:
     environment: 
       PORT: 3002
   nginx: 
-    image: nginx-conf2
+    image: nginx-conf4
     ports:
       - 8080:80
     depends_on:
